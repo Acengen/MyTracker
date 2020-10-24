@@ -1,3 +1,5 @@
-<div>
-  <p *ngFor="let v of values">{{v.id}}, {{v.name}}</p>
+<div *ngFor="let v of values;let i = index">
+  <p (click)="getValueByIndex(v)">{{v.id}}, {{v.name}}</p>
 </div>
+
+<app-HttpDetail *ngIf="single" [singleValue]="single"></app-HttpDetail>

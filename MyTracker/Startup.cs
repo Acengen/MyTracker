@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyTracker.Data;
+using MyTracker.Models;
 
 namespace MyTracker
 {
@@ -30,6 +31,7 @@ namespace MyTracker
             services.AddControllers();
             services.AddDbContext<MyDbContex>(opt => opt.UseSqlite(Configuration.GetConnectionString("MyTrackerConnection")));
             services.AddCors();
+            services.AddScoped<IAuthRepo, Auth>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

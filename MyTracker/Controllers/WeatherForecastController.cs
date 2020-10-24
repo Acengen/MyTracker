@@ -26,12 +26,12 @@ namespace MyTracker.Controllers
         {
             var values = await _context.Values.ToListAsync();
 
-            return Ok(values);
+            return Created("http://localhost:5000/WeatherForecast", values);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSingleVaule(int id) {
-            var value = await _context.Values.FirstOrDefaultAsync(x => x.Id == id);
+            var value = await _context.Values.SingleOrDefaultAsync(x => x.Id == id);
 
             return Ok(value);
         }

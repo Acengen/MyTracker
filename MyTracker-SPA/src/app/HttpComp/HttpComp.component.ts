@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { MyserviceService } from './../myservice.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,16 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HttpCompComponent implements OnInit {
 
-  values: any;
-  constructor(private http: HttpClient) {}
+  values = [];
+  single:any;
+  constructor(private service: MyserviceService) {}
 
   ngOnInit(): void {
-    this.http.get("http://localhost:5000/WeatherForecast").subscribe(
-      resdatta => {
-          this.values = resdatta;
-          console.log(this.values)
-      }
-    )
+       this.service.getValues().subscribe(
+         (resdata) => {
+           for(let key in resdata) {
+                this.values.push(resdata[key])
+           }
+         }
+       )
   }
 
+  getValueByIndex(item){
+     this.single = item;
+  }
 }

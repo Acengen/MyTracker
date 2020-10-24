@@ -1,3 +1,4 @@
+import { HttpDetailComponent } from './HttpComp/HttpDetail/HttpDetail.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
@@ -7,7 +8,8 @@ import { HttpCompComponent } from './HttpComp/HttpComp.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HttpCompComponent
+    HttpCompComponent,
+    HttpDetailComponent
    ],
   imports: [
     BrowserModule,
