@@ -1,0 +1,6 @@
+<form #f="ngForm" (ngSubmit)="TypeToAdd(f)">
+  <input class="form-control" name="name" type="text" ngModel/>
+</form>
+<div *ngFor="let t of arr">
+  {{t}}
+</div>

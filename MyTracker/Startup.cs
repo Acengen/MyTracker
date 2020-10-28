@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MyTracker.Data;
+using MyTracker.Helpers;
 using MyTracker.Models;
 
 namespace MyTracker
@@ -30,11 +35,14 @@ namespace MyTracker
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {  
+            services.AddAutoMapper(typeof (IUserRepo).Assembly);
             services.AddControllers();
             services.AddDbContext<MyDbContex>(opt => opt.UseSqlite(Configuration.GetConnectionString("MyTrackerConnection")));
             services.AddCors();
+            
             services.AddScoped<IAuthRepo, Auth>();
+            services.AddScoped<IUserRepo, UserRepo>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
                         options.TokenValidationParameters = new TokenValidationParameters 
@@ -54,15 +62,26 @@ namespace MyTracker
             {
                 app.UseDeveloperExceptionPage();
             }
+            else {
+                // app.UseExceptionHandler(builder => {
+                //     builder.Run(async context => {
+                //         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                //         var error = context.Features.Get<IExceptionHandlerFeature>();
+
+                //         if(error != null)
+                //         {
+                //             context.Response.AddAppError(error.Error.Message);
+                //             await context.Response.WriteAsync(error.Error.Message);
+                //         }
+                //     });
+                // });
+            }
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

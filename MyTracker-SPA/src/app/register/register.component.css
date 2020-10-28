@@ -1,0 +1,14 @@
+.form-signin {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+}
+
+input {
+    margin-top: 10px;
+    border: 1px solid grey;
+}
+
+button {
+    margin-top: 10px;
+}

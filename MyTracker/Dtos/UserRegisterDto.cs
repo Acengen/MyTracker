@@ -5,8 +5,10 @@ namespace MyTracker.Dtos
     public class UserRegisterDto
     {
         [Required]
-        [StringLength(8, MinimumLength=1,ErrorMessage="Username is required a minimum 1 character")]
         public string Username { get; set; }
+
+        [Required]
+        [StringLength(12,MinimumLength=3,ErrorMessage="Password must contain min 3 chars")]
         public string Password { get; set; }
     }
 }

@@ -5,6 +5,8 @@ namespace MyTracker.Data
 {
     public class MyDbContex: DbContext
     {
+        
+
         public MyDbContex(DbContextOptions<MyDbContex> opt):base(opt)
         {
             
@@ -12,5 +14,6 @@ namespace MyTracker.Data
 
         public DbSet<Value> Values {get;set;}
         public DbSet<User> Users {get;set;}
+        public DbSet<Photo> Photos {get;set;}
     }
 }

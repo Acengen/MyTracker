@@ -23,7 +23,7 @@ namespace MyTracker.Controllers
             _context = context;
         }
 
-        
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
@@ -31,6 +31,7 @@ namespace MyTracker.Controllers
 
             return Created("http://localhost:5000/WeatherForecast", values);
         }
+        
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSingleVaule(int id) {

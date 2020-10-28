@@ -1,3 +1,4 @@
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -47,6 +48,7 @@ namespace MyTracker.Controllers
 
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {
+            //throw new Exception("No you dont");
             var userFromRepo = await _repo.Login(userLoginDto.Username.ToLower(), userLoginDto.Password);
 
             if (userFromRepo == null)
